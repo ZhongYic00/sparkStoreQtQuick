@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 
     DMainWindow win;
     QQuickWidget widget;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    const QUrl url(QStringLiteral("./main.qml"));
 //    auto desktop = DApplication::desktop()->screen();
 //    desktop->setGraphicsEffect(new QGraphicsBlurEffect);
 //    widget.setGraphicsEffect(new QGraphicsBlurEffect);

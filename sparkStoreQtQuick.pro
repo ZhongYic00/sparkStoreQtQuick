@@ -31,3 +31,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     qtquickdtk.h
+
+DISTFILES += \
+    components/ApplistView.qml \
+    components/DetailsView.qml \
+    components/ImageView.qml \
+    components/SettingsView.qml
