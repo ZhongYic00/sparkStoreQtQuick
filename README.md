@@ -3,7 +3,14 @@ Implements spark-store with QtQuick in DTK style.
 
 The project contains some of my previous project `qml-dtk` which implements dtk-style in qml.
 
+# Screenshots
+![录屏_qtcreator_20211229010841](https://user-images.githubusercontent.com/38401412/147590171-a35706e0-2c9b-47cd-8aa1-59b456645301.gif)
+![录屏_sparkStoreQtQuick_20211229010736](https://user-images.githubusercontent.com/38401412/147590196-2f26f23a-f39b-4dba-b2c5-cf13f94f939d.gif)
+![录屏_sparkStoreQtQuick_20211229010406](https://user-images.githubusercontent.com/38401412/147589987-d8b90dbf-e775-4920-be2d-466356212b26.gif)
+
+
 # About Spark Store
+> Quoted from [Spark-Store-New](https://gitee.com/deepin-community-store/spark-store-new)
 <p align="center">
 <img src="https://gitee.com/deepin-community-store/spark-store-new/raw/master/assets/icon/logo.svg" height=200 width=200/>
 </p>
