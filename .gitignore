@@ -3,4 +3,5 @@
 sparkStoreQtQuick
 qrc_*
 qmake_*
-
+moc_*
+Makefile*
