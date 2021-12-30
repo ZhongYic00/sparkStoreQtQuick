@@ -13,8 +13,10 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
+#include <QDebug>
 #include <QQuickItem>
 #include "qtquickdtk.h"
+#include "utils.h"
 
 DWIDGET_USE_NAMESPACE
 int main(int argc, char* argv[])
@@ -45,10 +47,9 @@ int main(int argc, char* argv[])
     DMainWindow win;
     QQuickWidget widget;
     const QUrl url(QStringLiteral("./main.qml"));
-//    auto desktop = DApplication::desktop()->screen();
-//    desktop->setGraphicsEffect(new QGraphicsBlurEffect);
-//    widget.setGraphicsEffect(new QGraphicsBlurEffect);
     auto *settingsAction=new QAction("Settings");
+    qmlRegisterType<Process>("Process",1,0,"Process");
+//    qmlRegisterType()
     widget.engine()->rootContext()->setContextProperty("SettingsAction",settingsAction);
     win.titlebar()->menu()->addAction(settingsAction);
     widget.engine()->addImportPath("qrc:/imgview.qml");
@@ -58,19 +59,11 @@ int main(int argc, char* argv[])
     widget.setResizeMode(QQuickWidget::SizeRootObjectToView);
     win.setCentralWidget(&widget);
 
-
-//    WId proc2Window_HWND = WId(23069566);
-    //TODO: create the proc 1 window delegate
-//    QWindow* proc1Widow = QWindow::fromWinId(proc2Window_HWND);
-
-    //TODO: set the proxy widnow handle to proc 2 window
-//    win.setProperty("_q_embedded_native_parent_handle",QVariant(proc2Window_HWND));
-
-    //TODO: set the proxy window to proc2 window for parent
-    win.winId();
-    //win.windowHandle()->setParent(proc1Widow);
-//    win.resize(1920,1040);
-//    win.move(0,0);
+    QProcess p;
+    QObject::connect(&p,&Process::readyRead,[](){std::cerr<<"readyRead"<<std::endl;});
+    QVector<QString> vec;
+//    vec.push_back(QString(QString(".")));
+//    p.start(QString("/bin/ls"),QStringList::fromVector(vec));
 
     win.show();
 

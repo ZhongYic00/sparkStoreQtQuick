@@ -3,6 +3,8 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import Qt.labs.settings 1.1
+import Process 1.0
+import "utils.js" as Utils
 
 Rectangle {
     id: root
@@ -60,11 +62,12 @@ Rectangle {
                             id: sourceInput
                             text: root.source
                             Component.onCompleted: {
-                                request("file:///etc/apt/sources.list.d/sparkstore.list",
-                                        xhr => {
-                                            root.source = xhr.responseText.replace(
-                                                "deb [by-hash=force]", "")
-                                        })
+                                Utils.request(
+                                            "file:///etc/apt/sources.list.d/sparkstore.list",
+                                            xhr => {
+                                                root.source = xhr.responseText.replace(
+                                                    "deb [by-hash=force]", "")
+                                            })
                             }
                         }
                     }
@@ -107,6 +110,54 @@ Rectangle {
                         enabled: false
                         text: qsTr("/tmp/sparkstore")
                         Layout.alignment: Qt.AlignRight
+                    }
+                }
+            }
+        }
+        Column {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 20
+            spacing: 10
+            Text {
+                text: qsTr("Deb Source Test")
+                font.pointSize: 30
+            }
+            Pane {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                RowLayout {
+                    anchors.fill: parent
+                    Text {
+                        text: qsTr("run apt update")
+                    }
+                    Text {
+                        id: result
+                        text: "[empty]"
+                        maximumLineCount: 1
+                        elide: Qt.ElideRight
+                        ToolTip.text: text
+                        HoverHandler {
+                            onHoveredChanged: parent.ToolTip.visible = hovered
+                        }
+                    }
+
+                    Switch {
+                        id: swtch
+                        Layout.alignment: Qt.AlignRight
+                        onToggled: {
+                            console.error("running")
+                            process.start("pkexec", ["aptitude", "update"])
+                            enabled = false
+                        }
+                    }
+                }
+                Process {
+                    id: process
+                    onFinished: {
+                        console.error("ready")
+                        result.text = readAll()
+                        swtch.enabled = true
                     }
                 }
             }

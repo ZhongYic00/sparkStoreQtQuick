@@ -1,21 +1,7 @@
 import QtQuick 2.15
 
 SystemPalette {
-    colorGroup: switch (globalColorGroup) {
-                case "Disabled":
-                    SystemPalette.Disabled
-                    break
-                case "Inactive":
-                    SystemPalette.Inactive
-                    break
-                case "NColorGroups":
-                case "Current":
-                case "All":
-                case "Normal":
-                case "Active":
-                    SystemPalette.Active
-                    break
-                }
+    colorGroup: globalColorGroup == "Inactive" ? SystemPalette.Inactive : SystemPalette.Active
     onObviousBackgroundChanged: console.error(dpaletteLightStyle,
                                               globalColorGroup)
     property color lightLively: Qt.lighter(highlight, 4 / 3)

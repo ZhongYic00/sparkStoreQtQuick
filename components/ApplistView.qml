@@ -3,10 +3,12 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.15
+import "utils.js" as Utils
 
 Column {
     id: root
     //    anchors.fill: parent
+    objectName: "applistView"
     spacing: 20
     property var category: {
         "name": qsTr("network"),
@@ -14,6 +16,8 @@ Column {
         "icon": "net"
     }
     onCategoryChanged: refreshApplist()
+    property bool enabled: true
+    onEnabledChanged: console.error('enabled changed')
 
     ListModel {
         id: applist
@@ -44,6 +48,7 @@ Column {
         cellWidth: itemwidth + cellmargin
         cellHeight: itemheight + cellmargin
         cacheBuffer: cellHeight * 2
+        topMargin: cellmargin
         leftMargin: cellmargin
         clip: true
         model: applist
@@ -70,7 +75,7 @@ Column {
                 }
             }
             TapHandler {
-                onTapped: function () {
+                onTapped: {
                     var infos = {
                         "Package": Pkgname,
                         "Version": Version,
@@ -130,8 +135,9 @@ Column {
                         font.weight: Font.Thin
                         ToolTip.text: More
                         ToolTip.delay: 1000
+                        ToolTip.visible: hoverHandler.hovered && root.enabled
                         HoverHandler {
-                            onHoveredChanged: parent.ToolTip.visible = hovered
+                            id: hoverHandler
                         }
                     }
                 }
@@ -140,30 +146,17 @@ Column {
         ScrollIndicator.vertical: ScrollIndicator {}
     }
     Component.onCompleted: refreshApplist()
-
     function refreshApplist() {
-        request("http://d.store.deepinos.org.cn/store/" + root.category.url + "/applist.json",
-                function (o) {
-                    // translate response into object
-                    console.error("applist.json get")
-                    var d = JSON.parse(o.responseText)
-                    applist.clear()
-                    for (var i = 0; i < d.length && i < 100; i++) {
-                        applist.append(d[i])
-                    }
-                })
-    }
-
-    // this function is included locally, but you can also include separately via a header definition
-    function request(url, callback) {
-        var xhr = new XMLHttpRequest()
-        xhr.onreadystatechange = (function (myxhr) {
-            return function () {
-                if (myxhr.readyState == 4)
-                    callback(myxhr)
-            }
-        })(xhr)
-        xhr.open('GET', url, true)
-        xhr.send('')
+        Utils.request(
+                    "http://d.store.deepinos.org.cn/store/" + root.category.url + "/applist.json",
+                    function (o) {
+                        // translate response into object
+                        console.error("applist.json get")
+                        var d = JSON.parse(o.responseText)
+                        applist.clear()
+                        for (var i = 0; i < d.length && i < 100; i++) {
+                            applist.append(d[i])
+                        }
+                    })
     }
 }

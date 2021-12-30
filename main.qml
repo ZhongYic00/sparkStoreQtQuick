@@ -4,18 +4,16 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.15
 import "./components"
+import "qrc:/dtk"
 
 Rectangle {
     id: window
     implicitWidth: 800
     implicitHeight: 600
-    SystemPalette {
+    DPalette {
         id: dpalette
-        colorGroup: SystemPalette.Active
-        property color lightLively: Qt.lighter(highlight, 4 / 3)
-        property color darkLively: Qt.lighter(highlight, 11 / 10)
-        property color textWarning: Qt.darker(highlight, 10 / 9)
     }
+
     color: dpalette.base
     StackView {
         id: stack
@@ -38,6 +36,8 @@ Rectangle {
     Component {
         id: mainViewComponent
         ColumnLayout {
+            id: mainView
+            objectName: "mainViewComponent"
             TabBar {
                 id: tabBar
                 Layout.fillWidth: true
@@ -61,6 +61,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 category: tabBar.currentItem.category
+                enabled: stack.currentItem == mainView
             }
         }
     }
