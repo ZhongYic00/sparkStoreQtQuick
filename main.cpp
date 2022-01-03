@@ -15,7 +15,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QQuickItem>
-#include "qtquickdtk.h"
+#include "dtk/include/qtquickdtk.h"
 #include "utils.h"
 
 DWIDGET_USE_NAMESPACE
@@ -26,9 +26,6 @@ int main(int argc, char* argv[])
 #endif
 
     DApplication app(argc,argv);
-
-//    app.setApplicationName("QtQuick DTK");
-
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -49,7 +46,7 @@ int main(int argc, char* argv[])
     const QUrl url(QStringLiteral("./main.qml"));
     auto *settingsAction=new QAction("Settings");
     qmlRegisterType<Process>("Process",1,0,"Process");
-//    qmlRegisterType()
+
     widget.engine()->rootContext()->setContextProperty("SettingsAction",settingsAction);
     win.titlebar()->menu()->addAction(settingsAction);
     widget.engine()->addImportPath("qrc:/imgview.qml");
@@ -58,12 +55,6 @@ int main(int argc, char* argv[])
     widget.setSource(url);
     widget.setResizeMode(QQuickWidget::SizeRootObjectToView);
     win.setCentralWidget(&widget);
-
-    QProcess p;
-    QObject::connect(&p,&Process::readyRead,[](){std::cerr<<"readyRead"<<std::endl;});
-    QVector<QString> vec;
-//    vec.push_back(QString(QString(".")));
-//    p.start(QString("/bin/ls"),QStringList::fromVector(vec));
 
     win.show();
 

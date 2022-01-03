@@ -27,12 +27,5 @@ public:
         return QProcess::readAllStandardError()+QProcess::readAllStandardOutput();
     }
 };
-//DGUI_USE_NAMESPACE
-//class Palette:public DPalette{
-//    Q_OBJECT
-//public:
-//    Palette() : DPalette() { }
-
-//};
 
 #endif // UTILS_H
