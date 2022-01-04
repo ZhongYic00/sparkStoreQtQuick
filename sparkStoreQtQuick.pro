@@ -38,6 +38,7 @@ HEADERS += \
     utils.h
 
 DISTFILES += \
+    components/Backend.qml \
     main.qml \
     components/ApplistView.qml \
     components/DetailsView.qml \

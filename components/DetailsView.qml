@@ -8,11 +8,18 @@ ScrollView {
     property string name
     property string description
     property int iconsize: 150
-    property var info
     property var imgs
+    property var infos
     property int imgheight: 250
 
     contentWidth: parent.width
+
+    Backend {
+        id: backend
+        pkg: infos.Package
+        version: infos.Version
+    }
+
     Row {
         RoundButton {
             icon.name: "back"
@@ -42,19 +49,53 @@ ScrollView {
                         anchors.horizontalCenter: parent.horizontalCenter
                         fillMode: Image.PreserveAspectFit
                     }
+
                     Button {
                         text: qsTr("install")
                         width: root.iconsize
+                        visible: !backend.isInstalled
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    Button {
+                        text: backend.upToDate ? qsTr("up to date") : qsTr(
+                                                     "upgrade")
+                        width: root.iconsize
+                        visible: backend.isInstalled
+                        enabled: !backend.upToDate
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        ToolTip.text: backend.upToDate ? qsTr("up to date") : qsTr(
+                                                             "update available")
+                        ToolTip.visible: hovered
+                        ToolTip.delay: 500
+                    }
+                    Button {
+                        text: qsTr("uninstall")
+                        width: root.iconsize
+                        visible: backend.isInstalled
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
                 Column {
+                    ListModel {
+                        id: infomodel
+                        Component.onCompleted: {
+                            let info = []
+                            for (let i in root.infos) {
+                                infomodel.append({
+                                                     "key": i,
+                                                     "val": infos[i]
+                                                 })
+                            }
+                        }
+                    }
+
                     Repeater {
-                        model: root.info
+                        model: infomodel
+
                         Text {
                             color: dpalette.text
                             onLinkActivated: Qt.openUrlExternally(link)
-                            text: modelData.key + ": " + modelData.val
+                            text: key + ": " + val
                         }
                     }
                 }

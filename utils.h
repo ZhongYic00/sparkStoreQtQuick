@@ -26,6 +26,16 @@ public:
     Q_INVOKABLE QByteArray readAll() {
         return QProcess::readAllStandardError()+QProcess::readAllStandardOutput();
     }
+    Q_INVOKABLE QByteArray readStdout(){
+        return QProcess::readAllStandardOutput();
+    }
+    Q_INVOKABLE QByteArray readStderr(){
+        return QProcess::readAllStandardError();
+    }
+    Q_INVOKABLE int exitCode(){return QProcess::exitCode();}
+    Q_INVOKABLE bool wait(){
+        return QProcess::waitForFinished();
+    }
 };
 
 #endif // UTILS_H

@@ -84,13 +84,7 @@ Column {
                         "Contributor": Contributor,
                         "Size": Size
                     }
-                    let info = []
-                    for (let i in infos) {
-                        info.push({
-                                      "key": i,
-                                      "val": infos[i]
-                                  })
-                    }
+
                     let limg_urls = JSON.parse(img_urls || '[]')
                     console.error(limg_urls)
                     for (let i in limg_urls)
@@ -99,8 +93,8 @@ Column {
                                    "icons": icons,
                                    "name": Name,
                                    "description": More,
-                                   "info": info,
-                                   "imgs": limg_urls
+                                   "imgs": limg_urls,
+                                   "infos": infos
                                })
                 }
             }
