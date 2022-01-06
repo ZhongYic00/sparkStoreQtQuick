@@ -44,7 +44,6 @@ Column {
         property int textwidth: 2 * itemheight
         property int itemwidth: itemheight + textwidth
         property int cellmargin: bigRadius
-        property string defaulticon: ""
         cellWidth: itemwidth + cellmargin
         cellHeight: itemheight + cellmargin
         cacheBuffer: cellHeight * 2
@@ -76,26 +75,28 @@ Column {
             }
             TapHandler {
                 onTapped: {
-                    var infos = {
+                    var infos = obj
+
+
+                    /*{
                         "Package": Pkgname,
                         "Version": Version,
                         "Author": Author,
                         "Website": '<a href=\"' + Website + '\">' + Website + '</a>',
                         "Contributor": Contributor,
                         "Size": Size
-                    }
-
-                    let limg_urls = JSON.parse(img_urls || '[]')
+                    }*/
+                    let limg_urls = JSON.parse(obj.img_urls || '[]')
                     console.error(limg_urls)
                     for (let i in limg_urls)
                         console.error(limg_urls[i])
                     stack.push(detailsViewComponent, {
-                                   "icons": icons,
-                                   "name": Name,
-                                   "description": More,
-                                   "imgs": limg_urls,
                                    "infos": infos
                                })
+                    //                    "icons": obj.icons,
+                    //                    "name": obj.Name,
+                    //                    "description": obj.More,
+                    //                    "imgs": limg_urls,
                 }
             }
 
@@ -105,12 +106,12 @@ Column {
                     width: view.itemheight - 2 * 5
                     height: width
                     anchors.verticalCenter: parent.verticalCenter
-                    source: icons || view.defaulticon
+                    source: obj.icons
                     fillMode: Image.PreserveAspectFit
                 }
                 Column {
                     Text {
-                        text: Name
+                        text: obj.Name
                         color: dpalette.text
                         width: view.textwidth
                         height: view.itemheight * 0.4
@@ -120,14 +121,14 @@ Column {
                     }
 
                     Text {
-                        text: More
+                        text: obj.More
                         color: dpalette.text
                         width: view.textwidth
                         height: view.itemheight * 0.6
                         elide: Text.ElideRight
                         wrapMode: Text.Wrap
                         font.weight: Font.Thin
-                        ToolTip.text: More
+                        ToolTip.text: obj.More
                         ToolTip.delay: 1000
                         ToolTip.visible: hoverHandler.hovered && root.enabled
                         HoverHandler {
@@ -147,9 +148,13 @@ Column {
                         // translate response into object
                         console.error("applist.json get")
                         var d = JSON.parse(o.responseText)
+                        const defaulticon = ""
                         applist.clear()
                         for (var i = 0; i < d.length && i < 100; i++) {
-                            applist.append(d[i])
+                            d[i].icons = d[i].icons || defaulticon
+                            applist.append({
+                                               "obj": d[i]
+                                           })
                         }
                     })
     }

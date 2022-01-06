@@ -7,6 +7,11 @@ Item {
     property string version
     property bool isInstalled
     property bool upToDate
+    property var tasklist: []
+    property var addTask: function (task) {
+        tasklist.push(task)
+        dlworker.pickNext()
+    }
     Process {
         id: worker0
         onFinished: {
@@ -17,6 +22,40 @@ Item {
     }
     Process {
         id: worker1
+    }
+
+    Process {
+        id: dlworker
+        onFinished: pickNext()
+
+        function pickNext() {
+            console.error("pickNext", tasklist)
+            if (tasklist.length) {
+                let task = tasklist.pop()
+                runTask(task)
+            }
+        }
+        function runTask(task) {
+            console.error("runTask", task)
+            let url = "https://d.store.deepinos.org.cn/" + task.filename
+            let filename = "/tmp/spark-download-" + task.filename
+            console.error(url, filename)
+            dlworker.start("/usr/bin/curl", ["-o", filename, url])
+            dlworker.wait()
+            console.error(dlworker.readAll())
+            if (dlworker.exitCode() == 0)
+                insworker.start("pkexec", ["ssinstall", filename])
+        }
+    }
+    Process {
+        id: insworker
+    }
+
+    onTasklistChanged: {
+        console.error("onTasklistChanged", dlworker.Running)
+        if (dlworker.NotRunning) {
+            dlworker.pickNext()
+        }
     }
 
     onPkgChanged: {
