@@ -5,6 +5,7 @@ The project contains some of my previous project `qml-dtk` which implements dtk-
 
 # Screenshots
 ![录屏_qtcreator_20211229010841](https://user-images.githubusercontent.com/38401412/147590171-a35706e0-2c9b-47cd-8aa1-59b456645301.gif)
+![录屏_sparkStoreQtQuick_20220108033012](https://user-images.githubusercontent.com/38401412/148597392-298a8197-52d1-4012-8ed0-13d05bf4a25e.gif)
 ![录屏_sparkStoreQtQuick_20211229010736](https://user-images.githubusercontent.com/38401412/147590196-2f26f23a-f39b-4dba-b2c5-cf13f94f939d.gif)
 ![录屏_sparkStoreQtQuick_20211229010406](https://user-images.githubusercontent.com/38401412/147589987-d8b90dbf-e775-4920-be2d-466356212b26.gif)
 
