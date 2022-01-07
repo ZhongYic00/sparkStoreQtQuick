@@ -36,6 +36,9 @@ public:
     Q_INVOKABLE bool wait(){
         return QProcess::waitForFinished();
     }
+    Q_INVOKABLE bool isReadable(){
+        return QProcess::isReadable();
+    }
 };
 
 #endif // UTILS_H
