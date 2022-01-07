@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>components/utils.js</file>
+        <file>components/Backend.qml</file>
+        <file>components/Worker.qml</file>
+        <file>components/DetailsView.qml</file>
+        <file>components/ApplistView.qml</file>
+        <file>components/SettingsView.qml</file>
+        <file>components/ImageView.qml</file>
+    </qresource>
+</RCC>

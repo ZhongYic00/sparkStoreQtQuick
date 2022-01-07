@@ -13,7 +13,8 @@ SOURCES += \
         dtk/include/qmldpalette.cpp
 
 RESOURCES += \
-    dtk/resources/dtk.qrc
+    dtk/resources/dtk.qrc \
+    qmls.qrc
 
 TRANSLATIONS += \
     sparkStoreQtQuick_zh_CN.ts

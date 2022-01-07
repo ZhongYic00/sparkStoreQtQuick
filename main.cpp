@@ -43,13 +43,12 @@ int main(int argc, char* argv[])
 
     DMainWindow win;
     QQuickWidget widget;
-    const QUrl url(QStringLiteral("./main.qml"));
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
     auto *settingsAction=new QAction("Settings");
     qmlRegisterType<Process>("Process",1,0,"Process");
 
     widget.engine()->rootContext()->setContextProperty("SettingsAction",settingsAction);
     win.titlebar()->menu()->addAction(settingsAction);
-    widget.engine()->addImportPath("qrc:/imgview.qml");
 
     enableQtQuickDTKStyle(widget.engine());
     widget.setSource(url);
