@@ -1,0 +1,12 @@
+Package: spark-store-qt-quick
+Version: 0.0.1
+Maintainer: rubbishzhyic <zhong200234@outlook.com>
+Source: https://github.com/ZhongYic00/sparkStoreQtQuick/
+Homepage: https://github.com/ZhongYic00/sparkStoreQtQuick/
+Architecture: amd64
+Priority: optional
+Depends: libdtk5.5 (>=5.5.27-1), qml-module-qtquick2 (>=5.15.1.2+dde-1+eagle), qml-module-qtquick-controls2 (>=5.15.1.2+dde-1+eagle), qml-module-qt-labs-settings
+ (>=5.15.1.2+dde-1+eagle),  qml-module-qtquick-layouts (>=5.15.1.2+dde-1+eagle),  qml-module-qtgraphicaleffects (>=5.15.1.2+dde-1+eagle)
+Description: Spark store client implemented using QtQuick
+ Third party spark store client in DTK style implemented using QtQuick, which provides fluent animation, flexible UI and the potential for hot-fix.
+ The controls and palette are powered by QtQuick-DTK-style, a experimental project by the author.

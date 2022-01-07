@@ -1,0 +1,56 @@
+[DEBREATE-0.7.13]
+<<CTRL>>
+Package: spark-store-qtquick
+Version: 0.0.1
+Maintainer: rubbishzhyic <zhong200234@outlook.com>
+Source: https://github.com/ZhongYic00/sparkStoreQtQuick/
+Homepage: https://github.com/ZhongYic00/sparkStoreQtQuick/
+Architecture: amd64
+Priority: optional
+Depends: qml-module-qtquick2 (>=5.15.1.2+dde-1+eagle), qml-module-qtquick-controls2 (>=5.15.1.2+dde-1+eagle), qml-module-qt-labs-settings, libdtkwidget5.5 (>=5.5.27-1)
+Description: Spark store client implemented using QtQuick
+ (>=5.15.1.2+dde-1+eagle),  qml-module-qtquick-layouts (>=5.15.1.2+dde-1+eagle),  qml-module-qtgraphicaleffects (>=5.15.1.2+dde-1+eagle)
+ Third party spark store client in DTK style implemented using QtQuick, which provides fluent animation, flexible UI and the potential for hot-fix.
+ The controls and palette are powered by QtQuick-DTK-style, a experimental project by the author.
+
+<</CTRL>>
+<<FILES>>
+1
+/home/zyc/Github/sparkStoreQtQuick/main.qml -> main.qml -> /opt/durapps/spark-store-qtquick/bin/
+/home/zyc/Github/sparkStoreQtQuick/dtk -> dtk -> /opt/durapps/spark-store-qtquick/bin/
+/home/zyc/Github/sparkStoreQtQuick/components -> components -> /opt/durapps/spark-store-qtquick/bin/
+/home/zyc/Github/sparkStoreQtQuick/sparkStoreQtQuick* -> sparkStoreQtQuick -> /opt/durapps/spark-store-qtquick/bin/
+/home/zyc/Github/sparkStoreQtQuick/debian/opt/durapps/spark-store-qtquick/entries -> entries -> /opt/durapps/spark-store-qtquick/
+<</FILES>>
+<<SCRIPTS>>
+<<PREINST>>
+0
+<</PREINST>>
+<<POSTINST>>
+1
+ln -s /opt/durapps/spark-store-qtquick/entries/applications/spark-store-qtquick.desktop /usr/share/applications/spark-store-qtquick.desktop
+<</POSTINST>>
+<<PRERM>>
+0
+<</PRERM>>
+<<POSTRM>>
+1
+rm /usr/share/applications/spark-store-qtquick.desktop
+<</POSTRM>>
+<</SCRIPTS>>
+<<CHANGELOG>>
+<<DEST>>DEFAULT<</DEST>>
+
+<</CHANGELOG>>
+<<COPYRIGHT>>
+
+<</COPYRIGHT>>
+<<MENU>>
+0
+<</MENU>>
+<<BUILD>>
+1
+1
+1
+strip
+<</BUILD>>

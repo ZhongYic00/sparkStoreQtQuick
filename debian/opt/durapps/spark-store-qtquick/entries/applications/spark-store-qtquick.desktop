@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Categories=System;
+Exec=/opt/durapps/spark-store-qtquick/bin/sparkStoreQtQuick %u
+Icon=spark-store
+Name=Spark Store QtQuick
+Name[zh_CN]=星火应用商店QtQuick版
+Keywords=appstore;
+Terminal=false
+StartupNotify=true
+StartupWMClass=spark-store-qtquick
