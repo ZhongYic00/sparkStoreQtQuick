@@ -161,7 +161,7 @@ ScrollView {
 
             ListView {
                 id: rootImageList
-                model: root.infos.img_urls
+                model: JSON.parse(root.infos.img_urls || '[]')
                 orientation: Qt.Horizontal
                 clip: true
                 width: root.width
