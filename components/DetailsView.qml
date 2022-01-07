@@ -10,6 +10,7 @@ ScrollView {
     //    property string description
     //    property var imgs
     property var infos
+    property string category
     property int iconsize: 150
     property int imgheight: 250
 
@@ -59,7 +60,10 @@ ScrollView {
                         onClicked: {
                             console.error("installing")
                             backend.addTask({
+                                                "type": "install",
+                                                "category": root.category,
                                                 "filename": infos.Filename,
+                                                "pkgname": infos.Pkgname,
                                                 "name": infos.Name,
                                                 "icons": infos.icons
                                             })
@@ -76,12 +80,33 @@ ScrollView {
                                                              "update available")
                         ToolTip.visible: hovered
                         ToolTip.delay: 500
+                        onClicked: {
+                            console.error("updating")
+                            backend.addTask({
+                                                "type": "update",
+                                                "category": root.category,
+                                                "filename": infos.Filename,
+                                                "pkgname": infos.Pkgname,
+                                                "name": infos.Name,
+                                                "icons": infos.icons
+                                            })
+                        }
                     }
                     Button {
                         text: qsTr("uninstall")
                         width: root.iconsize
                         visible: backend.isInstalled
                         anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: {
+                            console.error("installing")
+                            backend.addTask({
+                                                "type": "uninstall",
+                                                "filename": infos.Filename,
+                                                "pkgname": infos.Pkgname,
+                                                "name": infos.Name,
+                                                "icons": infos.icons
+                                            })
+                        }
                     }
                 }
                 Column {

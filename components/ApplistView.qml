@@ -91,7 +91,8 @@ Column {
                     for (let i in limg_urls)
                         console.error(limg_urls[i])
                     stack.push(detailsViewComponent, {
-                                   "infos": infos
+                                   "infos": infos,
+                                   "category": category.url
                                })
                     //                    "icons": obj.icons,
                     //                    "name": obj.Name,
