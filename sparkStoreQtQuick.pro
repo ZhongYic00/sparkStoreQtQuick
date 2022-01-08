@@ -39,6 +39,7 @@ HEADERS += \
     utils.h
 
 DISTFILES += \
+    components/Appinfo.qml \
     components/Backend.qml \
     components/Worker.qml \
     main.qml \

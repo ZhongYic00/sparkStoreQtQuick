@@ -12,16 +12,13 @@ Item {
             idle = false
             //            console.error("Worker::next", steps.length, isReadable())
             if (steps.length) {
-                let step
-                if (isReadable())
-                    step = steps.shift()(exitCode(), readStdout(), readStderr())
-                else
-                    step = steps.shift()()
-                //                console.error("step:", step, step.exec, step.args)
-                if (step.exec) {
+                let step = steps.shift()(exitCode(), readStdout() || "",
+                                         readStderr() || "") || {}
+                //                console.error("step:", "exec" in step, step.exec, step.args)
+                if ("exec" in step && step.exec) {
                     start(step.exec, step.args)
                 } else {
-                    idle = true
+                    next()
                 }
             } else {
                 idle = true

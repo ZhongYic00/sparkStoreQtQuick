@@ -8,5 +8,6 @@
         <file>components/ApplistView.qml</file>
         <file>components/SettingsView.qml</file>
         <file>components/ImageView.qml</file>
+        <file>components/Appinfo.qml</file>
     </qresource>
 </RCC>

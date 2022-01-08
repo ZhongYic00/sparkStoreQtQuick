@@ -2,13 +2,10 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.12
 import "utils.js" as Utils
+import singleton.backend 1.0
 
 ScrollView {
     id: root
-    //    property string icons
-    //    property string name
-    //    property string description
-    //    property var imgs
     property var infos
     property string category
     property int iconsize: 150
@@ -16,8 +13,8 @@ ScrollView {
 
     contentWidth: parent.width
 
-    Backend {
-        id: backend
+    Appinfo {
+        id: appinfo
         pkg: infos.Pkgname
         version: infos.Version
     }
@@ -51,15 +48,21 @@ ScrollView {
                         anchors.horizontalCenter: parent.horizontalCenter
                         fillMode: Image.PreserveAspectFit
                     }
+                    BusyIndicator {
+                        visible: appinfo.isInstalled === -1
+                        height: 40
+                        dots: 3
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
 
                     Button {
                         text: qsTr("install")
                         width: root.iconsize
-                        visible: !backend.isInstalled
+                        visible: appinfo.isInstalled === 0
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             console.error("installing")
-                            backend.addTask({
+                            Backend.addTask({
                                                 "type": "install",
                                                 "category": root.category,
                                                 "filename": infos.Filename,
@@ -70,19 +73,19 @@ ScrollView {
                         }
                     }
                     Button {
-                        text: backend.upToDate ? qsTr("up to date") : qsTr(
-                                                     "upgrade")
+                        text: appinfo.upToDate == 1 ? qsTr("up to date") : qsTr(
+                                                          "upgrade")
                         width: root.iconsize
-                        visible: backend.isInstalled
-                        enabled: !backend.upToDate
+                        visible: appinfo.isInstalled === 1
+                        enabled: appinfo.upToDate === 0
                         anchors.horizontalCenter: parent.horizontalCenter
-                        ToolTip.text: backend.upToDate ? qsTr("up to date") : qsTr(
+                        ToolTip.text: appinfo.upToDate ? qsTr("up to date") : qsTr(
                                                              "update available")
                         ToolTip.visible: hovered
                         ToolTip.delay: 500
                         onClicked: {
                             console.error("updating")
-                            backend.addTask({
+                            Backend.addTask({
                                                 "type": "update",
                                                 "category": root.category,
                                                 "filename": infos.Filename,
@@ -95,11 +98,11 @@ ScrollView {
                     Button {
                         text: qsTr("uninstall")
                         width: root.iconsize
-                        visible: backend.isInstalled
+                        visible: appinfo.isInstalled === 1
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             console.error("installing")
-                            backend.addTask({
+                            Backend.addTask({
                                                 "type": "uninstall",
                                                 "filename": infos.Filename,
                                                 "pkgname": infos.Pkgname,
@@ -176,7 +179,8 @@ ScrollView {
                         ToolTip.text: modelData
                         TapHandler {
                             onTapped: {
-                                imgView.imgs = root.imgs
+                                imgView.imgs = JSON.parse(
+                                            root.infos.img_urls || '[]')
                                 imgView.idx = index
                                 imgView.showMaximized()
                             }

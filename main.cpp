@@ -12,8 +12,8 @@
 #include <QGraphicsEffect>
 #include <QLocale>
 #include <QTranslator>
-#include <QDir>
 #include <QDebug>
+#include <QtQml>
 #include <QQuickItem>
 #include "dtk/include/qtquickdtk.h"
 #include "utils.h"
@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     auto *settingsAction=new QAction("Settings");
     qmlRegisterType<Process>("Process",1,0,"Process");
+    qmlRegisterSingletonType(QUrl("qrc:/components/Backend.qml"),"singleton.backend",1,0,"Backend");
 
     widget.engine()->rootContext()->setContextProperty("SettingsAction",settingsAction);
     win.titlebar()->menu()->addAction(settingsAction);
