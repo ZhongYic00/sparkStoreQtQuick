@@ -76,16 +76,6 @@ Column {
             TapHandler {
                 onTapped: {
                     var infos = obj
-
-
-                    /*{
-                        "Package": Pkgname,
-                        "Version": Version,
-                        "Author": Author,
-                        "Website": '<a href=\"' + Website + '\">' + Website + '</a>',
-                        "Contributor": Contributor,
-                        "Size": Size
-                    }*/
                     let limg_urls = JSON.parse(obj.img_urls || '[]')
                     console.error(limg_urls)
                     for (let i in limg_urls)
@@ -94,10 +84,6 @@ Column {
                                    "infos": infos,
                                    "category": category.url
                                })
-                    //                    "icons": obj.icons,
-                    //                    "name": obj.Name,
-                    //                    "description": obj.More,
-                    //                    "imgs": limg_urls,
                 }
             }
 
