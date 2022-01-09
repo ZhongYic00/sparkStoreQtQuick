@@ -26,11 +26,23 @@ Rectangle {
             stack.push(settingsViewComponent)
         }
     }
+    Connections {
+        target: TasklistAction
+        function onTriggered() {
+            stack.push(tasklistViewComponent)
+        }
+    }
+
     Component {
         id: settingsViewComponent
         SettingsView {
             id: settingsView
         }
+    }
+
+    Component {
+        id: tasklistViewComponent
+        Tasklist {}
     }
 
     Component {

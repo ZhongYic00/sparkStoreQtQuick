@@ -10,7 +10,6 @@ ScrollView {
     property string category
     property int iconsize: 150
     property int imgheight: 250
-
     contentWidth: parent.width
 
     Appinfo {

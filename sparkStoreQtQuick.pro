@@ -41,6 +41,7 @@ HEADERS += \
 DISTFILES += \
     components/Appinfo.qml \
     components/Backend.qml \
+    components/Tasklist.qml \
     components/Worker.qml \
     main.qml \
     components/ApplistView.qml \

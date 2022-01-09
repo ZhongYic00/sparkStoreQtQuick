@@ -9,5 +9,6 @@
         <file>components/SettingsView.qml</file>
         <file>components/ImageView.qml</file>
         <file>components/Appinfo.qml</file>
+        <file>components/Tasklist.qml</file>
     </qresource>
 </RCC>

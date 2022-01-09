@@ -45,11 +45,14 @@ int main(int argc, char* argv[])
     QQuickWidget widget;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     auto *settingsAction=new QAction("Settings");
+    auto *tasklistAction=new QAction("Tasks");
     qmlRegisterType<Process>("Process",1,0,"Process");
     qmlRegisterSingletonType(QUrl("qrc:/components/Backend.qml"),"singleton.backend",1,0,"Backend");
 
     widget.engine()->rootContext()->setContextProperty("SettingsAction",settingsAction);
     win.titlebar()->menu()->addAction(settingsAction);
+    widget.engine()->rootContext()->setContextProperty("TasklistAction",tasklistAction);
+    win.titlebar()->menu()->addAction(tasklistAction);
 
     enableQtQuickDTKStyle(widget.engine());
     widget.setSource(url);

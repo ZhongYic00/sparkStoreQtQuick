@@ -22,7 +22,11 @@ public:
 
         QProcess::start(program, args);
     }
-
+    Q_INVOKABLE void kill(){
+        QProcess::kill();
+    }
+    Q_INVOKABLE void stop(){
+    }
     Q_INVOKABLE QByteArray readAll() {
         return QProcess::readAllStandardError()+QProcess::readAllStandardOutput();
     }
