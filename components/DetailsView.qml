@@ -116,7 +116,7 @@ ScrollView {
                         id: infomodel
                         Component.onCompleted: {
                             let info = []
-                            const displayed = ["Version", "Pkgname", "Author", "Contributer", "Website", "Update", "Size"]
+                            const displayed = ["Version", "Pkgname", "Author", "Contributor", "Website", "Update", "Size"]
                             for (let i in displayed) {
                                 infomodel.append({
                                                      "key": displayed[i],
