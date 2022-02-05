@@ -94,6 +94,7 @@ Column {
                     height: width
                     anchors.verticalCenter: parent.verticalCenter
                     source: obj.icons
+                            || `https://d.store.deepinos.org.cn//store/${category.name}/${obj.Pkgname}/icon.png`
                     fillMode: Image.PreserveAspectFit
                 }
                 Column {
