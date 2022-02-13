@@ -5,13 +5,14 @@ import QtQuick.Layouts 1.12
 import Qt.labs.settings 1.1
 import Process 1.0
 import "utils.js" as Utils
+import singleton.dpalette 1.0
 
 Rectangle {
     id: root
     property string server: "https://d.store.deepinos.org.cn/"
     property string source
     visible: false
-    color: dpalette.base
+    color: DPalette.base
     anchors.fill: parent
     RoundButton {
         icon.name: "dialog-close"

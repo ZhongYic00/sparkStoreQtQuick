@@ -5,16 +5,14 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.15
 import "./components"
 import "qrc:/dtk"
+import singleton.dpalette 1.0
 
 Rectangle {
     id: window
     implicitWidth: 800
     implicitHeight: 600
-    DPalette {
-        id: dpalette
-    }
 
-    color: dpalette.base
+    color: DPalette.base
     StackView {
         id: stack
         initialItem: mainViewComponent
@@ -47,12 +45,13 @@ Rectangle {
 
     Component {
         id: mainViewComponent
-        ColumnLayout {
+        Item {
             id: mainView
             objectName: "mainViewComponent"
             TabBar {
                 id: tabBar
-                Layout.fillWidth: true
+                anchors.left: parent.left
+                anchors.right: parent.right
                 implicitWidth: window.width
                 font.pointSize: 14
                 isScrollEnabled: false
@@ -70,8 +69,9 @@ Rectangle {
             }
             ApplistView {
                 id: applistView
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+                width: parent.width
+                anchors.top: tabBar.bottom
+                anchors.bottom: parent.bottom
                 category: tabBar.currentItem.category
                 enabled: stack.currentItem == mainView
             }

@@ -1,42 +1,62 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
 import "utils.js" as Utils
 import singleton.backend 1.0
+import singleton.dpalette 1.0
 
-ScrollView {
+Item {
     id: root
     property var infos
     property string category
     property int iconsize: 150
     property int imgheight: 250
-    contentWidth: parent.width
 
+    //    contentWidth: parent.width
     Appinfo {
         id: appinfo
         pkg: infos.Pkgname
         version: infos.Version
     }
 
-    Row {
-        RoundButton {
-            icon.name: "back"
-            icon.width: 30
-            icon.height: 30
-            onClicked: {
-                root.contentWidth = 0
-                stack.pop()
-            }
+    RoundButton {
+        id: backButton
+        anchors.left: parent.left
+        anchors.top: parent.top
+        icon.name: "back"
+        icon.width: 30
+        icon.height: 30
+        onClicked: {
+            stack.pop()
         }
+    }
+
+    Flickable {
+        id: scrollView
+        clip: true
+        anchors.left: backButton.right
+        anchors.right: parent.right
+        height: parent.height
+        contentHeight: col.height
+
+        boundsBehavior: Flickable.DragOverBounds
+        flickableDirection: Flickable.VerticalFlick
+        Component.onCompleted: console.warn('flickable', flickDeceleration)
+
         Column {
+            id: col
+            width: parent.width
             Text {
                 text: root.infos.Name
-                color: dpalette.text
+                color: DPalette.text
                 font.pointSize: root.iconsize / 4
                 font.family: "Noto Serif"
             }
 
             Row {
+                width: parent.width
+                Component.onCompleted: console.warn('row', height)
                 spacing: 10
                 Column {
                     spacing: 10
@@ -130,7 +150,7 @@ ScrollView {
                         model: infomodel
 
                         Text {
-                            color: dpalette.text
+                            color: DPalette.text
                             onLinkActivated: Qt.openUrlExternally(link)
                             text: key + ": " + val
                         }
@@ -139,34 +159,32 @@ ScrollView {
             }
             Text {
                 text: qsTr("Details")
-                color: dpalette.text
+                color: DPalette.text
                 width: parent.width
                 font.pointSize: root.iconsize / 8
                 padding: 3
             }
             Text {
                 text: root.infos.More
-                color: dpalette.text
+                color: DPalette.text
                 width: parent.width
                 wrapMode: Text.Wrap
             }
             Text {
                 text: qsTr("Screenshots")
-                color: dpalette.text
+                color: DPalette.text
                 font.pointSize: root.iconsize / 8
                 padding: 3
             }
 
-            ListModel {
-                id: imgsmodel
-            }
-
             ListView {
+                Component.onCompleted: console.warn('column', height,
+                                                    contentHeight)
                 id: rootImageList
                 model: JSON.parse(root.infos.img_urls || '[]')
                 orientation: Qt.Horizontal
                 clip: true
-                width: root.width
+                width: parent.width
                 height: root.imgheight
                 boundsBehavior: Flickable.DragOverBounds
                 spacing: 10

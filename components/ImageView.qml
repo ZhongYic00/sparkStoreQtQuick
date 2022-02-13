@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.12
+import singleton.dpalette 1.0
 
 Window {
     id: imgView
@@ -10,7 +11,7 @@ Window {
     modality: Qt.ApplicationModal
     flags: Qt.CoverWindow | Qt.CustomizeWindowHint | Qt.NoDropShadowWindowHint
            | Qt.WindowStaysOnTopHint
-    color: dpalette.base
+    color: DPalette.base
     Item {
         anchors.fill: parent
 

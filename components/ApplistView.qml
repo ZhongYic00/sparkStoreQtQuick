@@ -4,10 +4,11 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.15
 import "utils.js" as Utils
+import singleton.dpalette 1.0
 
 Column {
     id: root
-    //    anchors.fill: parent
+    anchors.fill: parent
     objectName: "applistView"
     spacing: 20
     property var category: {
@@ -24,7 +25,7 @@ Column {
     }
     Text {
         id: applistcount
-        color: dpalette.text
+        color: DPalette.text
         text: qsTr(applist.count + " apps")
     }
     Component {
@@ -50,18 +51,20 @@ Column {
         topMargin: cellmargin
         leftMargin: cellmargin
         clip: true
+        flickDeceleration: 3000
+
         model: applist
         delegate: Rectangle {
             radius: smallRadius
             property int shadowradius: smallRadius
-            color: dpalette.window
+            color: DPalette.window
             width: view.itemwidth
             height: view.itemheight
             layer.enabled: true
             layer.effect: DropShadow {
                 radius: shadowradius
                 samples: 17
-                color: dpalette.dark
+                color: DPalette.dark
                 transparentBorder: true
             }
             HoverHandler {
@@ -100,7 +103,7 @@ Column {
                 Column {
                     Text {
                         text: obj.Name
-                        color: dpalette.text
+                        color: DPalette.text
                         width: view.textwidth
                         height: view.itemheight * 0.4
                         fontSizeMode: Text.VerticalFit
@@ -110,7 +113,7 @@ Column {
 
                     Text {
                         text: obj.More
-                        color: dpalette.text
+                        color: DPalette.text
                         width: view.textwidth
                         height: view.itemheight * 0.6
                         elide: Text.ElideRight
@@ -126,7 +129,6 @@ Column {
                 }
             }
         }
-        ScrollIndicator.vertical: ScrollIndicator {}
     }
     Component.onCompleted: refreshApplist()
     function refreshApplist() {

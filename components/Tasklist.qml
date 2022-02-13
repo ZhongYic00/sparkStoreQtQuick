@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import singleton.backend 1.0
+import singleton.dpalette 1.0
 
 Item {
     id: root
@@ -40,7 +41,7 @@ Item {
                 height: view.itemHeight
                 width: view.itemWidth
                 radius: smallRadius
-                color: index % 2 ? dpalette.base : dpalette.itemBackground
+                color: index % 2 ? DPalette.base : DPalette.itemBackground
                 Row {
                     id: content
                     anchors.fill: parent
